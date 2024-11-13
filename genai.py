@@ -72,27 +72,28 @@ def create_jan_september_dataset():
 
     return pd.concat([df_2023, df_2024])
 
-def create_prompt_with_code_request(df_september, df_jan_sep):
-    df_september_str = df_september.head(10).to_string(index=False)
-    df_jan_sep_str = df_jan_sep.head(10).to_string(index=False)
+def create_prompt_with_code_request(df_summary, df_detailed):
+    df_summary_str = df_summary.head(10).to_string(index=False)
+    df_detailed_str = df_detailed.head(10).to_string(index=False)
     prompt = f"""
     I have financial data for multiple SAP accounts for the years 2023 and 2024. The data includes two datasets:
-    1. The first dataset (df_september) contains daily records of balance for each SAP account for September, including 2023 and 2024. Here is a sample: {df_september_str}
-    2. The second dataset (df_jan_sep) includes records of balance and interest rate for each SAP account from January to September, covering both years. Here is a sample: {df_jan_sep_str}
+    1. The first dataset (df_summary) contains daily records of balance for each SAP account with a COB Date and Balance Amount. Here is a sample: {df_summary_str}
+    2. The second dataset (df_detailed) includes detailed records for each SAP account, with columns for COB Date, Trade Date, Maturity Date, Balance Amount, Floating Rate, Interest Rate, and Principal Amount. Here is a sample: {df_detailed_str}
 
     Please provide Python code that completes the following tasks and stores the results in the specified variable names:
 
-    1. In `df_september`, calculate the top 3 SAP accounts with the largest total increase in balance for September and store the result as a list in the variable `top3_increase`. Similarly, calculate the top 3 SAP accounts with the largest decrease in balance and store the result in the variable `top3_decrease`.
-    
-    2. Using `df_jan_sep`, calculate the average balance and average interest rate for each SAP account for September in both years 2023 and 2024. Store the result in a DataFrame called `avg_sept`.
+    1. In `df_summary`, calculate the top 3 SAP accounts with the largest total increase in balance for September and store the result as a list in the variable `top3_increase`. Similarly, calculate the top 3 SAP accounts with the largest decrease in balance and store the result in the variable `top3_decrease`.
+
+    2. Using `df_detailed`, calculate the average balance and average interest rate for each SAP account for September in both years 2023 and 2024. Store the result in a DataFrame called `avg_sept`.
 
     3. Calculate the year-over-year (YoY) change in average balance and interest rate from 2023 to 2024 for each SAP account, using the `avg_sept` DataFrame. Store the YoY changes in balance and interest rate for each SAP account in the columns `Balance_chg` and `Interest_chg`, respectively, within `avg_sept`.
 
     4. Identify and store the top 3 SAP accounts with the largest YoY increase in balance in a list named `top3_bal_increase`, and the top 3 with the largest YoY decrease in balance in a list named `top3_bal_decrease`. Similarly, store the top 3 SAP accounts with the largest YoY increase in interest rate in a list named `top3_int_increase` and the top 3 with the largest YoY decrease in interest rate in a list named `top3_int_decrease`.
 
-    Ensure the code uses these exact variable names. Give the whole python code for all tasks together. 
+    Ensure the code uses these exact variable names. Give the whole Python code for all tasks together. 
     """
     return prompt
+
 
 def standardize_column_names(df):
     # Standardize column names by stripping whitespace and converting to title case
