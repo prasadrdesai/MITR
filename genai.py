@@ -84,15 +84,16 @@ def create_prompt_with_code_request(df_summary, df_detailed):
 
     1. In `df_summary`, calculate the top 3 SAP accounts with the largest total increase in balance for September and store the result as a list in the variable `top3_increase`. Similarly, calculate the top 3 SAP accounts with the largest decrease in balance and store the result in the variable `top3_decrease`.
 
-    2. Using `df_detailed`, calculate the average balance and average interest rate for each SAP account for September in both years 2023 and 2024. Store the result in a DataFrame called `avg_sept`.
+    2. Using `df_detailed`, calculate the average balance and average interest rate for each SAP account for September in both years 2023 and 2024. Ensure that date columns (e.g., COB Date) are converted to datetime format before processing to avoid errors. Store the result in a DataFrame called `avg_sept`.
 
     3. Calculate the year-over-year (YoY) change in average balance and interest rate from 2023 to 2024 for each SAP account, using the `avg_sept` DataFrame. Store the YoY changes in balance and interest rate for each SAP account in the columns `Balance_chg` and `Interest_chg`, respectively, within `avg_sept`.
 
     4. Identify and store the top 3 SAP accounts with the largest YoY increase in balance in a list named `top3_bal_increase`, and the top 3 with the largest YoY decrease in balance in a list named `top3_bal_decrease`. Similarly, store the top 3 SAP accounts with the largest YoY increase in interest rate in a list named `top3_int_increase` and the top 3 with the largest YoY decrease in interest rate in a list named `top3_int_decrease`.
 
-    Ensure the code uses these exact variable names. Give the whole Python code for all tasks together. 
+    Ensure the code checks if date columns are already in datetime format and, if not, converts them using `pd.to_datetime()`. Use these exact variable names. Give the whole Python code for all tasks together. 
     """
     return prompt
+
 
 
 def standardize_column_names(df):
