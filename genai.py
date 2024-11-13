@@ -82,17 +82,15 @@ def create_prompt_with_code_request(df_summary, df_detailed):
 
     Please provide Python code that completes the following tasks and stores the results in the specified variable names:
 
-    Please provide Python code that completes the following tasks and stores the results in the specified variable names:
-
     1. In `df_summary`, calculate the top 3 SAP accounts with the largest total increase in balance for September and store the result as a list in the variable `top3_increase`. Similarly, calculate the top 3 SAP accounts with the largest decrease in balance and store the result in the variable `top3_decrease`.
 
-    2. Using `df_detailed`, calculate the average balance, principal amount, floating rate, and interest rate for each SAP account for September in both years 2023 and 2024. Ensure that date columns (e.g., COB Date) are converted to datetime format before processing, and verify that numeric columns are in the correct format to avoid errors. Store the result in a DataFrame called `avg_data`.
+    2. Using `df_detailed`, calculate the average balance, principal amount, floating rate, and interest rate for each SAP account for September in both years 2023 and 2024. Ensure that date columns (e.g., COB Date) are converted to datetime format before processing, and verify that numeric columns are in the correct format to avoid errors. 
 
-    3. Calculate the year-over-year (YoY) change in average balance, principal amount, floating rate, and interest rate from 2023 to 2024 for each SAP account, using the `avg_data` DataFrame. Store the YoY changes in balance, principal amount, floating rate, and interest rate for each SAP account in the columns `Balance_chg`, `Principal_chg`, `FloatingRate_chg`, and `Interest_chg`, respectively, within `avg_data`.
+    3. Calculate the year-over-year (YoY) change from 2023 to 2024 for each SAP account in the columns for average balance, principal amount, floating rate, and interest rate, using the results from step 2. Store these YoY changes in a single DataFrame called `avg_data`, which should have only five columns: `SAP Account`, `Balance_chg`, `Principal_chg`, `FloatingRate_chg`, and `Interest_chg`.
 
     4. Identify and store the top 3 SAP accounts with the largest YoY increase in floating rate in a list named `top3_floating_increase`, and the top 3 with the largest YoY decrease in floating rate in a list named `top3_floating_decrease`. Similarly, store the top 3 SAP accounts with the largest YoY increase in interest rate in a list named `top3_int_increase` and the top 3 with the largest YoY decrease in interest rate in a list named `top3_int_decrease`.
 
-    Before performing any grouping or aggregation, ensure that columns are in the correct data types (datetime for dates and numeric for balance, interest rate, etc.) to avoid errors like 'str object has no attribute group'. Respond with the code only, without any additional formatting or code block delimiters, so it can be run directly.
+    Ensure that only the columns specified are included in `avg_data`, with one row per SAP account, and that the YoY calculations are performed correctly. Respond with the code only, without any additional formatting or code block delimiters, so it can be run directly.
     """
     return prompt
 
