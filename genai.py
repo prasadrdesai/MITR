@@ -84,15 +84,16 @@ def create_prompt_with_code_request(df_summary, df_detailed):
 
     1. In `df_summary`, calculate the top 3 SAP accounts with the largest total increase in balance for September and store the result as a list in the variable `top3_increase`. Similarly, calculate the top 3 SAP accounts with the largest decrease in balance and store the result in the variable `top3_decrease`.
 
-    2. Using `df_detailed`, calculate the average balance, principal amount, floating rate, and interest rate for each SAP account for September in both years 2023 and 2024. Ensure that date columns (e.g., COB Date) are converted to datetime format before processing to avoid errors. Store the result in a DataFrame called `avg_data`. When grouping and aggregating, handle each column with `.agg()` and explicitly state each aggregation function for each column to avoid errors.
+    2. Using `df_detailed`, calculate the average balance, principal amount, floating rate, and interest rate for each SAP account for September in both years 2023 and 2024. Ensure that date columns (e.g., COB Date) are converted to datetime format before processing to avoid errors. Store the result in a DataFrame called `avg_data`. Ensure any columns that vary by year (e.g., "2023_Balance Amount" and "2024_Balance Amount") are correctly referenced by using `.loc` or by renaming columns appropriately before aggregating.
 
     3. Calculate the year-over-year (YoY) change in average balance, principal amount, floating rate, and interest rate from 2023 to 2024 for each SAP account, using the `avg_data` DataFrame. Store the YoY changes in balance, principal amount, floating rate, and interest rate for each SAP account in the columns `Balance_chg`, `Principal_chg`, `FloatingRate_chg`, and `Interest_chg`, respectively, within `avg_data`.
 
     4. Identify and store the top 3 SAP accounts with the largest YoY increase in floating rate in a list named `top3_floating_increase`, and the top 3 with the largest YoY decrease in floating rate in a list named `top3_floating_decrease`. Similarly, store the top 3 SAP accounts with the largest YoY increase in interest rate in a list named `top3_int_increase` and the top 3 with the largest YoY decrease in interest rate in a list named `top3_int_decrease`.
 
-    Ensure the code checks if date columns are already in datetime format and, if not, converts them using `pd.to_datetime()`. Use these exact variable names. If aggregation errors occur, ensure that each function in `.agg()` matches the appropriate column type. Respond with the code only, without any additional formatting or code block delimiters, so it can be run directly.
+    Ensure the code checks if date columns are already in datetime format and, if not, converts them using `pd.to_datetime()`. Additionally, handle columns that differ by year suffixes to avoid column reference issues, using `.loc` or renaming if needed. Respond with the code only, without any additional formatting or code block delimiters, so it can be run directly.
     """
     return prompt
+
 
 def standardize_column_names(df):
     # Standardize column names by stripping whitespace and converting to title case
